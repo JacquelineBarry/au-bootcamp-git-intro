@@ -63,7 +63,7 @@
 # files that were 'given to' this script. The variable "$@" will be very useful
 # for this. Let's take a look at what it gives us:
 
-echo "$@"
+#echo "$@"
 
 # How are you going to work with each file path?
 # HINT: for loop (remember "for do done"?)
@@ -94,3 +94,24 @@ echo "$@"
 #
 # ADD YOUR CODE BELOW:
 
+# Store the total number of sequences
+totalsequences=0
+
+# Loop thru the filenames
+for filepath in "$@"
+do
+  # Get the number of sequences in the file by searching the > character
+  nsequences=$(grep ">" $filepath | wc -l)
+
+  # Increment the total number of sequences
+  totalsequences=`expr $totalsequences + $nsequences` 
+
+  # Get the filename without the full path
+  filename="$(basename $filepath)"
+
+  # Print the expected output
+  echo "$((nsequences)) $filename"
+done
+
+# Print the total number of sequences
+echo "$totalsequences"
